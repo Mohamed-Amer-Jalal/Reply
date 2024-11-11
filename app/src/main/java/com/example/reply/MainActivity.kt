@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -45,8 +44,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ReplyAppCompactPreview() {
     ReplyTheme {
-        Surface {
-            ReplyApp()
+        val layoutDirection = LocalLayoutDirection.current
+        val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
+        Scaffold(
+            modifier = Modifier
+                .padding(
+                    start = windowInsets.calculateStartPadding(layoutDirection),
+                    end = windowInsets.calculateEndPadding(layoutDirection)
+                )
+        ) { innerPadding ->
+            ReplyApp(modifier = Modifier.padding(innerPadding))
         }
     }
 }
