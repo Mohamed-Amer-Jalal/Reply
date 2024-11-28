@@ -6,12 +6,13 @@ import com.example.reply.data.MailboxType
 import com.example.reply.data.local.LocalEmailsDataProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class ReplyViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(ReplyUiState())
-    val uiState: StateFlow<ReplyUiState> = _uiState
+    val uiState: StateFlow<ReplyUiState> = _uiState.asStateFlow()
 
     init {
         initializeUIState()
@@ -20,12 +21,19 @@ class ReplyViewModel : ViewModel() {
     private fun initializeUIState() {
         val mailboxes: Map<MailboxType, List<Email>> =
             LocalEmailsDataProvider.allEmails.groupBy { it.mailbox }
-        _uiState.value =
-            ReplyUiState(
+        _uiState.update {
+            it.copy(
                 mailboxes = mailboxes,
                 currentSelectedEmail = mailboxes[MailboxType.Inbox]?.get(0)
                     ?: LocalEmailsDataProvider.defaultEmail
             )
+        }
+        /*_uiState.value =
+            ReplyUiState(
+                mailboxes = mailboxes,
+                currentSelectedEmail = mailboxes[MailboxType.Inbox]?.get(0)
+                    ?: LocalEmailsDataProvider.defaultEmail
+            )*/
     }
 
     fun updateDetailsScreenStates(email: Email) {
