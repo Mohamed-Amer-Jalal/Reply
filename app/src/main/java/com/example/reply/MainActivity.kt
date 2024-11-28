@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
             ReplyTheme {
                 val layoutDirection = LocalLayoutDirection.current
                 val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
-
                 Scaffold(
                     modifier = Modifier
                         .padding(
