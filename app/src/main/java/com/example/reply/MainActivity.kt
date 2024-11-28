@@ -11,14 +11,15 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.reply.ui.ReplyApp
 import com.example.reply.ui.theme.ReplyTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,6 +27,7 @@ class MainActivity : ComponentActivity() {
             ReplyTheme {
                 val layoutDirection = LocalLayoutDirection.current
                 val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
+
                 Scaffold(
                     modifier = Modifier
                         .padding(
@@ -33,27 +35,13 @@ class MainActivity : ComponentActivity() {
                             end = windowInsets.calculateEndPadding(layoutDirection)
                         )
                 ) { innerPadding ->
-                    ReplyApp(modifier = Modifier.padding(innerPadding))
+                    val windowSize = calculateWindowSizeClass(this)
+                    ReplyApp(
+                        modifier = Modifier.padding(innerPadding),
+                        windowSize = windowSize.widthSizeClass
+                    )
                 }
             }
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ReplyAppCompactPreview() {
-    ReplyTheme {
-        val layoutDirection = LocalLayoutDirection.current
-        val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
-        Scaffold(
-            modifier = Modifier
-                .padding(
-                    start = windowInsets.calculateStartPadding(layoutDirection),
-                    end = windowInsets.calculateEndPadding(layoutDirection)
-                )
-        ) { innerPadding ->
-            ReplyApp(modifier = Modifier.padding(innerPadding))
         }
     }
 }
