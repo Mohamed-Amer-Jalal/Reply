@@ -108,7 +108,7 @@ fun ReplyListAndDetailContent(
             modifier = Modifier
                 .padding(top = dimensionResource(R.dimen.email_list_item_vertical_spacing))
                 .weight(1f),
-            onBackPressed = {}
+            onBackPressed = { activity.finish() }
         )
     }
 }
@@ -135,10 +135,7 @@ fun ReplyEmailListItem(
                 .fillMaxWidth()
                 .padding(dimensionResource(R.dimen.email_list_item_inner_padding))
         ) {
-            ReplyEmailItemHeader(
-                email,
-                Modifier.fillMaxWidth()
-            )
+            ReplyEmailItemHeader(email, Modifier.fillMaxWidth())
             Text(
                 text = stringResource(email.subject),
                 style = MaterialTheme.typography.bodyLarge,
