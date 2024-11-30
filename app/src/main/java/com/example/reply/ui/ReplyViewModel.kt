@@ -28,12 +28,6 @@ class ReplyViewModel : ViewModel() {
                     ?: LocalEmailsDataProvider.defaultEmail
             )
         }
-        /*_uiState.value =
-            ReplyUiState(
-                mailboxes = mailboxes,
-                currentSelectedEmail = mailboxes[MailboxType.Inbox]?.get(0)
-                    ?: LocalEmailsDataProvider.defaultEmail
-            )*/
     }
 
     fun updateDetailsScreenStates(email: Email) {
