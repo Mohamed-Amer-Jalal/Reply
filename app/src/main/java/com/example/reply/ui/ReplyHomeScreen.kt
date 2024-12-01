@@ -96,7 +96,8 @@ fun ReplyHomeScreen(
                             .padding(dimensionResource(R.dimen.drawer_padding_content))
                     )
                 }
-            }
+            },
+            modifier = Modifier.testTag(stringResource(R.string.navigation_drawer))
         ) {
             ReplyAppContent(
                 navigationType = navigationType,
@@ -178,6 +179,7 @@ private fun ReplyAppContent(
                     navigationItemContentList = navigationItemContentList,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .testTag(stringResource(R.string.navigation_bottom))
                 )
             }
         }
