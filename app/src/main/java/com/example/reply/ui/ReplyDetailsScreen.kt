@@ -45,9 +45,7 @@ fun ReplyDetailsScreen(
     modifier: Modifier = Modifier,
     isFullScreen: Boolean = false,
 ) {
-    BackHandler {
-        onBackPressed()
-    }
+    BackHandler { onBackPressed() }
     Box(modifier = modifier) {
         LazyColumn(
             contentPadding = WindowInsets.safeDrawing.asPaddingValues(),
@@ -68,10 +66,9 @@ fun ReplyDetailsScreen(
                     email = replyUiState.currentSelectedEmail,
                     mailboxType = replyUiState.currentMailbox,
                     isFullScreen = isFullScreen,
-                    modifier = if (isFullScreen) {
-                        Modifier.padding(horizontal = dimensionResource(R.dimen.detail_card_outer_padding_horizontal))
-                    } else {
-                        Modifier.padding(end = dimensionResource(R.dimen.detail_card_outer_padding_horizontal))
+                    modifier = when (isFullScreen) {
+                        true -> Modifier.padding(horizontal = dimensionResource(R.dimen.detail_card_outer_padding_horizontal))
+                        false -> Modifier.padding(end = dimensionResource(R.dimen.detail_card_outer_padding_horizontal))
                     }
                 )
             }
@@ -131,17 +128,16 @@ private fun ReplyEmailDetailsCard(
                 .padding(dimensionResource(R.dimen.detail_card_inner_padding))
         ) {
             DetailsScreenHeader(email, Modifier.fillMaxWidth())
-            if (isFullScreen) {
-                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.detail_content_padding_top)))
-            } else {
-                Text(
+            when (isFullScreen) {
+                true -> Spacer(modifier = Modifier.height(dimensionResource(R.dimen.detail_content_padding_top)))
+                false -> Text(
                     text = stringResource(email.subject),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.outline,
                     modifier = Modifier.padding(
                         top = dimensionResource(R.dimen.detail_content_padding_top),
                         bottom = dimensionResource(R.dimen.detail_expanded_subject_body_spacing)
-                    ),
+                    )
                 )
             }
             Text(
@@ -162,58 +158,47 @@ private fun DetailsScreenButtonBar(
 ) {
     Box(modifier = modifier) {
         when (mailboxType) {
-            MailboxType.Drafts ->
+            MailboxType.Drafts -> ActionButton(
+                text = stringResource(id = R.string.continue_composing),
+                onButtonClicked = displayToast
+            )
+
+            MailboxType.Spam -> Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = dimensionResource(R.dimen.detail_button_bar_padding_vertical)),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.detail_button_bar_item_spacing))
+            ) {
                 ActionButton(
-                    text = stringResource(id = R.string.continue_composing),
-                    onButtonClicked = displayToast
+                    text = stringResource(id = R.string.move_to_inbox),
+                    onButtonClicked = displayToast,
+                    modifier = Modifier.weight(1f)
                 )
+                ActionButton(
+                    text = stringResource(id = R.string.delete),
+                    onButtonClicked = displayToast,
+                    containIrreversibleAction = true,
+                    modifier = Modifier.weight(1f)
+                )
+            }
 
-            MailboxType.Spam ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            vertical = dimensionResource(R.dimen.detail_button_bar_padding_vertical)
-                        ),
-                    horizontalArrangement = Arrangement.spacedBy(
-                        dimensionResource(R.dimen.detail_button_bar_item_spacing)
-                    ),
-                ) {
-                    ActionButton(
-                        text = stringResource(id = R.string.move_to_inbox),
-                        onButtonClicked = displayToast,
-                        modifier = Modifier.weight(1f)
-                    )
-                    ActionButton(
-                        text = stringResource(id = R.string.delete),
-                        onButtonClicked = displayToast,
-                        containIrreversibleAction = true,
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-
-            MailboxType.Sent, MailboxType.Inbox ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            vertical = dimensionResource(R.dimen.detail_button_bar_padding_vertical)
-                        ),
-                    horizontalArrangement = Arrangement.spacedBy(
-                        dimensionResource(R.dimen.detail_button_bar_item_spacing)
-                    ),
-                ) {
-                    ActionButton(
-                        text = stringResource(id = R.string.reply),
-                        onButtonClicked = displayToast,
-                        modifier = Modifier.weight(1f)
-                    )
-                    ActionButton(
-                        text = stringResource(id = R.string.reply_all),
-                        onButtonClicked = displayToast,
-                        modifier = Modifier.weight(1f)
-                    )
-                }
+            MailboxType.Sent, MailboxType.Inbox -> Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = dimensionResource(R.dimen.detail_button_bar_padding_vertical)),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.detail_button_bar_item_spacing)),
+            ) {
+                ActionButton(
+                    text = stringResource(id = R.string.reply),
+                    onButtonClicked = displayToast,
+                    modifier = Modifier.weight(1f)
+                )
+                ActionButton(
+                    text = stringResource(id = R.string.reply_all),
+                    onButtonClicked = displayToast,
+                    modifier = Modifier.weight(1f)
+                )
+            }
         }
     }
 }

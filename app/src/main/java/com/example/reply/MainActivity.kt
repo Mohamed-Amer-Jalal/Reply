@@ -52,21 +52,19 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ReplyAppCompactPreview() {
     ReplyTheme {
-        ReplyTheme {
-            val layoutDirection = LocalLayoutDirection.current
-            val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
-            Scaffold(
-                modifier = Modifier
-                    .padding(
-                        start = windowInsets.calculateStartPadding(layoutDirection),
-                        end = windowInsets.calculateEndPadding(layoutDirection)
-                    )
-            ) { innerPadding ->
-                ReplyApp(
-                    modifier = Modifier.padding(innerPadding),
-                    windowSize = WindowWidthSizeClass.Compact
+        val layoutDirection = LocalLayoutDirection.current
+        val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
+        Scaffold(
+            modifier = Modifier
+                .padding(
+                    start = windowInsets.calculateStartPadding(layoutDirection),
+                    end = windowInsets.calculateEndPadding(layoutDirection)
                 )
-            }
+        ) { innerPadding ->
+            ReplyApp(
+                modifier = Modifier.padding(innerPadding),
+                windowSize = WindowWidthSizeClass.Compact
+            )
         }
     }
 }
@@ -75,21 +73,19 @@ fun ReplyAppCompactPreview() {
 @Composable
 fun ReplyAppMediumPreview() {
     ReplyTheme {
-        ReplyTheme {
-            val layoutDirection = LocalLayoutDirection.current
-            val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
-            Scaffold(
-                modifier = Modifier
-                    .padding(
-                        start = windowInsets.calculateStartPadding(layoutDirection),
-                        end = windowInsets.calculateEndPadding(layoutDirection)
-                    )
-            ) { innerPadding ->
-                ReplyApp(
-                    modifier = Modifier.padding(innerPadding),
-                    windowSize = WindowWidthSizeClass.Medium
+        val layoutDirection = LocalLayoutDirection.current
+        val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
+        Scaffold(
+            modifier = Modifier
+                .padding(
+                    start = windowInsets.calculateStartPadding(layoutDirection),
+                    end = windowInsets.calculateEndPadding(layoutDirection)
                 )
-            }
+        ) { innerPadding ->
+            ReplyApp(
+                modifier = Modifier.padding(innerPadding),
+                windowSize = WindowWidthSizeClass.Medium
+            )
         }
     }
 }
@@ -98,21 +94,19 @@ fun ReplyAppMediumPreview() {
 @Composable
 fun ReplyAppExpandedPreview() {
     ReplyTheme {
-        ReplyTheme {
-            val layoutDirection = LocalLayoutDirection.current
-            val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
-            Scaffold(
-                modifier = Modifier
-                    .padding(
-                        start = windowInsets.calculateStartPadding(layoutDirection),
-                        end = windowInsets.calculateEndPadding(layoutDirection)
-                    )
-            ) { innerPadding ->
-                ReplyApp(
-                    modifier = Modifier.padding(innerPadding),
-                    windowSize = WindowWidthSizeClass.Expanded
+        val layoutDirection = LocalLayoutDirection.current
+        val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
+        Scaffold(
+            modifier = Modifier
+                .padding(
+                    start = windowInsets.calculateStartPadding(layoutDirection),
+                    end = windowInsets.calculateEndPadding(layoutDirection)
                 )
-            }
+        ) { innerPadding ->
+            ReplyApp(
+                modifier = Modifier.padding(innerPadding),
+                windowSize = WindowWidthSizeClass.Expanded
+            )
         }
     }
 }
