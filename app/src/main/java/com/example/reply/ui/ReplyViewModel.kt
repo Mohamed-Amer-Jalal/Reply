@@ -30,30 +30,19 @@ class ReplyViewModel : ViewModel() {
         }
     }
 
-    fun updateDetailsScreenStates(email: Email) {
-        _uiState.update {
-            it.copy(
-                currentSelectedEmail = email,
-                isShowingHomepage = false
-            )
-        }
-    }
+    fun updateDetailsScreenStates(email: Email) =
+        _uiState.update { it.copy(currentSelectedEmail = email, isShowingHomepage = false) }
 
     fun resetHomeScreenStates() {
         _uiState.update {
             it.copy(
                 currentSelectedEmail = it.mailboxes[it.currentMailbox]?.get(0)
-                    ?: LocalEmailsDataProvider.defaultEmail,
-                isShowingHomepage = true
+                    ?: LocalEmailsDataProvider.defaultEmail, isShowingHomepage = true
             )
         }
     }
 
     fun updateCurrentMailbox(mailboxType: MailboxType) {
-        _uiState.update {
-            it.copy(
-                currentMailbox = mailboxType
-            )
-        }
+        _uiState.update { it.copy(currentMailbox = mailboxType) }
     }
 }

@@ -119,13 +119,12 @@ fun ReplyHomeScreen(
                 modifier = modifier
             )
 
-            false ->
-                ReplyDetailsScreen(
-                    replyUiState = replyUiState,
-                    isFullScreen = true,
-                    onBackPressed = onDetailScreenBackPressed,
-                    modifier = modifier
-                )
+            false -> ReplyDetailsScreen(
+                replyUiState = replyUiState,
+                isFullScreen = true,
+                onBackPressed = onDetailScreenBackPressed,
+                modifier = modifier
+            )
         }
     }
 }
@@ -142,12 +141,17 @@ private fun ReplyAppContent(
 ) {
     Row(modifier = modifier) {
         AnimatedVisibility(visible = navigationType == ReplyNavigationType.NAVIGATION_RAIL) {
-            ReplyNavigationRail(
-                currentTab = replyUiState.currentMailbox,
-                onTabPressed = onTabPressed,
-                navigationItemContentList = navigationItemContentList,
-                modifier = Modifier.testTag(stringResource(R.string.navigation_rail))
-            )
+            NavigationRail(modifier = modifier) {
+                for (navItem in navigationItemContentList) {
+                    NavigationRailItem(
+                        selected = replyUiState.currentMailbox == navItem.mailboxType,
+                        onClick = { onTabPressed(navItem.mailboxType) },
+                        icon = {
+                            Icon(imageVector = navItem.icon, contentDescription = navItem.text)
+                        }
+                    )
+                }
+            }
         }
         Column(
             modifier = Modifier
@@ -166,57 +170,22 @@ private fun ReplyAppContent(
                     onEmailCardPressed = onEmailCardPressed,
                     modifier = Modifier
                         .weight(1f)
-                        .padding(
-                            horizontal = dimensionResource(R.dimen.email_list_only_horizontal_padding)
-                        )
+                        .padding(horizontal = dimensionResource(R.dimen.email_list_only_horizontal_padding))
                 )
             }
             AnimatedVisibility(visible = navigationType == ReplyNavigationType.BOTTOM_NAVIGATION) {
-                ReplyBottomNavigationBar(
-                    currentTab = replyUiState.currentMailbox,
-                    onTabPressed = onTabPressed,
-                    navigationItemContentList = navigationItemContentList,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .testTag(stringResource(R.string.navigation_bottom))
-                )
+                NavigationBar(modifier = modifier) {
+                    for (navItem in navigationItemContentList) {
+                        NavigationBarItem(
+                            selected = replyUiState.currentMailbox == navItem.mailboxType,
+                            onClick = { onTabPressed(navItem.mailboxType) },
+                            icon = {
+                                Icon(imageVector = navItem.icon, contentDescription = navItem.text)
+                            }
+                        )
+                    }
+                }
             }
-        }
-    }
-}
-
-@Composable
-private fun ReplyNavigationRail(
-    currentTab: MailboxType,
-    onTabPressed: ((MailboxType) -> Unit),
-    navigationItemContentList: List<NavigationItemContent>,
-    modifier: Modifier = Modifier,
-) {
-    NavigationRail(modifier = modifier) {
-        for (navItem in navigationItemContentList) {
-            NavigationRailItem(
-                selected = currentTab == navItem.mailboxType,
-                onClick = { onTabPressed(navItem.mailboxType) },
-                icon = { Icon(imageVector = navItem.icon, contentDescription = navItem.text) }
-            )
-        }
-    }
-}
-
-@Composable
-private fun ReplyBottomNavigationBar(
-    currentTab: MailboxType,
-    onTabPressed: ((MailboxType) -> Unit),
-    navigationItemContentList: List<NavigationItemContent>,
-    modifier: Modifier = Modifier,
-) {
-    NavigationBar(modifier = modifier) {
-        for (navItem in navigationItemContentList) {
-            NavigationBarItem(
-                selected = currentTab == navItem.mailboxType,
-                onClick = { onTabPressed(navItem.mailboxType) },
-                icon = { Icon(imageVector = navItem.icon, contentDescription = navItem.text) }
-            )
         }
     }
 }
@@ -232,7 +201,7 @@ private fun NavigationDrawerContent(
         NavigationDrawerHeader(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(dimensionResource(R.dimen.profile_image_padding)),
+                .padding(dimensionResource(R.dimen.profile_image_padding))
         )
         for (navItem in navigationItemContentList) {
             NavigationDrawerItem(

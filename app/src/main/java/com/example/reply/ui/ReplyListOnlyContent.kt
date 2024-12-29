@@ -47,9 +47,7 @@ fun ReplyListOnlyContent(
     LazyColumn(
         modifier = modifier,
         contentPadding = WindowInsets.safeDrawing.asPaddingValues(),
-        verticalArrangement = Arrangement.spacedBy(
-            dimensionResource(R.dimen.email_list_item_vertical_spacing)
-        )
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.email_list_item_vertical_spacing))
     ) {
         item {
             ReplyHomeTopBar(
@@ -84,17 +82,13 @@ fun ReplyListAndDetailContent(
             modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = dimensionResource(R.dimen.email_list_only_horizontal_padding)),
-            verticalArrangement = Arrangement.spacedBy(
-                dimensionResource(R.dimen.email_list_item_vertical_spacing)
-            )
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.email_list_item_vertical_spacing))
         ) {
             items(emails, key = { email -> email.id }) { email ->
                 ReplyEmailListItem(
                     email = email,
                     selected = replyUiState.currentSelectedEmail.id == email.id,
-                    onCardClick = {
-                        onEmailCardPressed(email)
-                    },
+                    onCardClick = { onEmailCardPressed(email) }
                 )
             }
         }
@@ -110,7 +104,7 @@ fun ReplyListAndDetailContent(
 }
 
 @Composable
-fun ReplyEmailListItem(
+private fun ReplyEmailListItem(
     email: Email,
     selected: Boolean,
     onCardClick: () -> Unit,
@@ -156,8 +150,7 @@ private fun ReplyEmailItemHeader(email: Email, modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         ReplyProfileImage(
             drawableResource = email.sender.avatar,
-            description = stringResource(email.sender.firstName) + " "
-                    + stringResource(email.sender.lastName),
+            description = stringResource(email.sender.firstName) + " " + stringResource(email.sender.lastName),
             modifier = Modifier.size(dimensionResource(R.dimen.email_header_profile_size))
         )
         Column(
@@ -186,22 +179,19 @@ private fun ReplyEmailItemHeader(email: Email, modifier: Modifier = Modifier) {
 fun ReplyProfileImage(
     @DrawableRes drawableResource: Int,
     description: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
         Image(
             modifier = Modifier.clip(CircleShape),
             painter = painterResource(drawableResource),
-            contentDescription = description,
+            contentDescription = description
         )
     }
 }
 
 @Composable
-fun ReplyLogo(
-    modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.primary,
-) {
+fun ReplyLogo(modifier: Modifier = Modifier, color: Color = MaterialTheme.colorScheme.primary) {
     Image(
         painter = painterResource(R.drawable.logo),
         contentDescription = stringResource(R.string.logo),

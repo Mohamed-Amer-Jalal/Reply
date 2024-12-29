@@ -31,11 +31,10 @@ class MainActivity : ComponentActivity() {
                 val layoutDirection = LocalLayoutDirection.current
                 val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
                 Scaffold(
-                    modifier = Modifier
-                        .padding(
-                            start = windowInsets.calculateStartPadding(layoutDirection),
-                            end = windowInsets.calculateEndPadding(layoutDirection)
-                        )
+                    modifier = Modifier.padding(
+                        start = windowInsets.calculateStartPadding(layoutDirection),
+                        end = windowInsets.calculateEndPadding(layoutDirection)
+                    )
                 ) { innerPadding ->
                     val windowSize = calculateWindowSizeClass(this)
                     ReplyApp(
@@ -55,15 +54,13 @@ fun ReplyAppCompactPreview() {
         val layoutDirection = LocalLayoutDirection.current
         val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
         Scaffold(
-            modifier = Modifier
-                .padding(
-                    start = windowInsets.calculateStartPadding(layoutDirection),
-                    end = windowInsets.calculateEndPadding(layoutDirection)
-                )
+            modifier = Modifier.padding(
+                start = windowInsets.calculateStartPadding(layoutDirection),
+                end = windowInsets.calculateEndPadding(layoutDirection)
+            )
         ) { innerPadding ->
             ReplyApp(
-                modifier = Modifier.padding(innerPadding),
-                windowSize = WindowWidthSizeClass.Compact
+                modifier = Modifier.padding(innerPadding), windowSize = WindowWidthSizeClass.Compact
             )
         }
     }
@@ -76,15 +73,13 @@ fun ReplyAppMediumPreview() {
         val layoutDirection = LocalLayoutDirection.current
         val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
         Scaffold(
-            modifier = Modifier
-                .padding(
-                    start = windowInsets.calculateStartPadding(layoutDirection),
-                    end = windowInsets.calculateEndPadding(layoutDirection)
-                )
+            modifier = Modifier.padding(
+                start = windowInsets.calculateStartPadding(layoutDirection),
+                end = windowInsets.calculateEndPadding(layoutDirection)
+            )
         ) { innerPadding ->
             ReplyApp(
-                modifier = Modifier.padding(innerPadding),
-                windowSize = WindowWidthSizeClass.Medium
+                modifier = Modifier.padding(innerPadding), windowSize = WindowWidthSizeClass.Medium
             )
         }
     }
@@ -97,11 +92,10 @@ fun ReplyAppExpandedPreview() {
         val layoutDirection = LocalLayoutDirection.current
         val windowInsets = WindowInsets.safeDrawing.asPaddingValues()
         Scaffold(
-            modifier = Modifier
-                .padding(
-                    start = windowInsets.calculateStartPadding(layoutDirection),
-                    end = windowInsets.calculateEndPadding(layoutDirection)
-                )
+            modifier = Modifier.padding(
+                start = windowInsets.calculateStartPadding(layoutDirection),
+                end = windowInsets.calculateEndPadding(layoutDirection)
+            )
         ) { innerPadding ->
             ReplyApp(
                 modifier = Modifier.padding(innerPadding),

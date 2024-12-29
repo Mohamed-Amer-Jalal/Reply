@@ -186,7 +186,7 @@ private fun DetailsScreenButtonBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = dimensionResource(R.dimen.detail_button_bar_padding_vertical)),
-                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.detail_button_bar_item_spacing)),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.detail_button_bar_item_spacing))
             ) {
                 ActionButton(
                     text = stringResource(id = R.string.reply),
@@ -238,7 +238,7 @@ private fun ActionButton(
     text: String,
     onButtonClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
-    containIrreversibleAction: Boolean = false,
+    containIrreversibleAction: Boolean = false
 ) {
     Box(modifier = modifier) {
         Button(
